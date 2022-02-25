@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+
+    {% if vendors %}
+        <table>
+        <tr>
+            <th>ID</th><th>Vendor</th><th>Status</th>
+        </tr>
+            {% for v in vendors %}
+                <tr>
+                    <td>{{v.vendor_id}}</td><td>{{v.vendor}}</td><td>{{v.status}}</td>
+                </tr>
+
+        {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

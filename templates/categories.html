@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+
+    {% if cats %}
+        <table>
+        <tr>
+            <th>ID</th><th>Category</th><th>Status</th>
+        </tr>
+            {% for c in cats %}
+                <tr>
+                    <td>{{c.cat_id}}</td><td>{{c.cat}}</td><td>{{c.status}}</td>
+                </tr>
+
+        {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

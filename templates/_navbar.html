@@ -1,0 +1,90 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">maxx22</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            fastbooks
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('addexp') }}">Add expense</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('expenses') }}">List expenses</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('categories') }}">List categories</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('vendors') }}">List vendors</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            mirabile dictu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">1111
+            <li><a class="dropdown-item" href="{{ url_for('write') }}">Write post</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('posts') }}">Read all posts</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('translators') }}">List translators</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('authors') }}">List authors</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+     {% if session['username'] %}
+            Log out
+              {% else %}
+              Log in/register
+              {% endif %}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+<!--              {% if session['username'] %}-->
+<!--              <li class="nav-item active">-->
+<!--           </li>-->
+<!--              {% else %}-->
+<!--&lt;!&ndash;              <li class="nav-item active">&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--              {% endif %}-->
+
+
+
+
+
+              {% if session['username'] %}
+            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Log out</a></li>
+              {% else %}
+
+            <li><a class="dropdown-item" href="{{ url_for('login') }}">Log in</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('register') }}">Sign up</a></li>
+              {% endif %}
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<hr>

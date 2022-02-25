@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>Add expense</h2>
+    <form action="" method="POST">
+                {{ form.hidden_tag() }}
+
+<table>
+            <tr>
+
+              <td><img src="{{ url_for('static', filename='img/spacer.svg') }}" width="15" alt="spacer"> </td>
+                <td>  {{ form.expdate.label }}   </td>
+                <td>  {{ form.expdate}}          </td>
+                    {% for error in form.expdate.errors %}
+                    <span style="color:red;">[{{ error }}]</span>
+                    {% endfor %}
+                </tr>
+                <tr>
+                  <td></td>
+                <td> {{ form.expdesc.label }} </td>
+                <td> {{ form.expdesc}}        </td>
+                </tr>
+                <tr>
+                <td></td>
+                <td>{{form.expamount.label }}  </td>
+                <td>{{ form.expamount}}       </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td> {{ form.vendor.label }} </td>
+                <td> {{ form.vendor}}        </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>{{ form.expcat.label }} </td>
+                <td>{{ form.expcat }}       </td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td> {{ form.submit() }}  </td>
+              </tr>
+              </table>
+
+            </form>
+<hr>
+<br>
+{% endblock %}

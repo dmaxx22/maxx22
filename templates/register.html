@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block sub_content %}
+  <div class="text-center">
+  <h3>Register</h3>
+</div>
+
+<form class="form-horizontal" method="POST">
+<div class="container">
+  <div class="form-group">
+    <label class= "control-label col-sm-3" >First name</label>
+    <div class="col-sm-3">
+      <input type="text" name="firstname"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class= "control-label col-sm-3" >Last name</label>
+    <div class="col-sm-3">
+      <input type="text" name="lastname"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class= "control-label col-sm-3" >Username</label>
+    <div class="col-sm-3">
+      <input type="text" name="username"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class= "control-label col-sm-3" >Email</label>
+    <div class="col-sm-3">
+      <input type="email" name="email"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class= "control-label col-sm-3" >Password</label>
+    <div class="col-sm-3">
+      <input type="password" name="password"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class= "control-label col-sm-6" >Confirm password</label>
+    <div class="col-sm-6">
+      <input type="password" name="confirm_password"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class= "col-sm-offset-2 col-sm-10" >
+      <button  type="submit">Submit</button>
+    </div>
+  </div>
+  </div>
+</form>
+
+
+
+<div class="container theme-showcase" role="main">
+
+      <div class="page-header">
+        <h2>Register</h2>
+      </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="well bs-component">
+              <form class="form-horizontal" method="POST" action="/register">
+                <fieldset>
+
+                  <div class="form-group">
+<!--                    <label for="inputFirstname" class="col-lg-2 control-label">First name</label>-->
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" name="firstname" placeholder="First name">
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="form-group">
+<!--                    <label for="inputLastname" class="col-lg-2 control-label">Last name</label>-->
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" name="lastname" placeholder="Last name">
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="form-group">
+<!--                    <label for="inputUsername" class="col-lg-2 control-label">Username</label>-->
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                  </div>
+
+                  <br />
+                   <div class="form-group">
+<!--                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>-->
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" name="email" placeholder="Email">
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group">
+<!--                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>-->
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                  </div>
+                  <br />
+                 <div class="form-group">
+<!--                    <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm password</label>-->
+                    <div class="col-md-10">
+                      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm password">
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+
+    </div> <!-- /container -->
+
+
+
+
+{% endblock %}

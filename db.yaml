@@ -1,0 +1,5 @@
+mysql_host: '127.0.0.1'
+mysql_user: 'maxx'
+mysql_password: 'xnynzn987'
+mysql_db: 'fastbooks'
+SQLALCHEMY_DATABASE_URI : "mysql + pymysql://maxx:xnynzn987@localhost:3306/fastbooks"
