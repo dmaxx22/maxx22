@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if blogs %}
+    {% for post in blogs%}
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.text }}</p>
+    {% endfor %}
+{% else %}
+ <h4>No blogs have been posted yet by {{ session["username"]}}</h4>
+{% endif %}
+
+{% endblock%}
+
+

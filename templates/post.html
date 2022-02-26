@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block sub_content %}
+<p>Displaying post: {{ blog['blog_id'] }}</p>
+<hr>
+<p>post.html </p>
+{% if blog %}
+<h3>{{ blog['title']}}</h3>
+<p>{{ blog['text']}}</p>
+{% endif %}
+
+{% endblock%}
+
+
+
+
