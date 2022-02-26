@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request, url_for, redirect, session, render_template, g, flash
-# from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 import yaml
-
+import datetime
 
 
 
@@ -18,17 +18,20 @@ import time
 # from database import get_db, connect_db
 
 app = Flask(__name__)
-# Bootstrap(app)
+
 db_conf = yaml.safe_load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db_conf['mysql_host']
 app.config['MYSQL_USER'] = db_conf['mysql_user']
 app.config['MYSQL_PASSWORD'] = db_conf['mysql_password']
 app.config['MYSQL_DB'] = db_conf['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'  #So that results are not tuples....
-mysql = MySQL(app)
-
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = '58fc483a-949a-487c-bfaa-da8a5923cd0e'
+
+mysql = MySQL(app)
+bootstrap =  Bootstrap(app)
+
+
 
 @app.route('/')
 def home():
@@ -55,11 +58,31 @@ def admin():
 @app.route('/expenses')
 def expenses():
     cur = mysql.connection.cursor()
-    ret = cur.execute(
-        '''SELECT exp_id, descr, amount, exp_date, cat_id, vendor_id FROM expenses ORDER BY exp_date DESC''')
+    ret = cur.execute('''SELECT e.exp_id, e.descr, e.amount, e.month, e.day, e.year,  v.vendor, c.cat 
+    FROM expenses e  JOIN vendors v ON (e.vendor_id = v.vendor_id) 
+    JOIN cats c on (e.cat_id = c.cat_id) ORDER BY e.month, e.day ''')
+
     if ret:
         expenses = cur.fetchall()
         return render_template("expenses.html", expenses=expenses)
+
+
+@app.route('/exp_mo/<int:mo>')
+def exp_mo(mo):
+    cur = mysql.connection.cursor()
+    ret = cur.execute('''SELECT e.exp_id, e.descr, e.amount, e.month, e.day, e.year,  v.vendor, c.cat 
+    FROM expenses e  JOIN vendors v ON (e.vendor_id = v.vendor_id) 
+    JOIN cats c on (e.cat_id = c.cat_id) WHERE e.month = {} ORDER BY e.month, e.day'''.format(mo))
+    if ret:
+        expenses = cur.fetchall()
+
+        s= cur.execute('''SELECT c.cat, SUM(e.amount) as sum FROM expenses e JOIN cats c on(e.cat_id = c.cat_id) WHERE e.month = {} GROUP BY c.cat ORDER BY c.cat'''.format(mo))
+        if s:
+            sums = cur.fetchall()
+        return render_template("expenses.html", expenses=expenses, sums=sums)
+
+
+
 
 @app.route('/macro_exp')
 def macro_exp():
@@ -116,7 +139,10 @@ def addexp():
         flash("Expense recorded: {}".format(descr))
         return render_template('dummy.html')
 
-    return render_template('addexp.html')
+    d = datetime.datetime.now()
+    d_int= d.strftime("%d")
+    m_int = d.strftime("%m")
+    return render_template('addexp.html', month=m_int, day=d_int)
 
 
 @app.route('/logout')
@@ -244,6 +270,19 @@ def posts():
     cur.close()
     return render_template('posts.html', blogs=None)
 
+@app.route('/posts_all')
+def posts_all():
+    author_id = session['user_id']
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM blogs ")
+    if result_value > 0:
+        hisher_blogs = cur.fetchall()
+        cur.close()
+        return render_template('posts.html', blogs=hisher_blogs)
+    cur.close()
+    return render_template('posts.html', blogs=None)
+
+
 
 @app.route('/post/<int:id>/')
 def post(id):
@@ -263,12 +302,38 @@ def post(id):
 
 @app.route('/authors')
 def authors():
-    return render_template("authors.html")
+    return render_template("authors.html", title_searching=True)
+
+@app.route('/title_search', methods=['GET','POST'])
+def title_search():
+    param = request.form['title_search'].upper()
+    cur = mysql.connection.cursor()
+    q = """SELECT t.title_id, t.title, concat(a.firstname, ' ', a.lastname) AS authname, t.pub_year, t.price, t.img_url FROM titles t JOIN authors a 
+    ON t.author_id = a.author_id JOIN keywords kw on t.title_id = kw.title_id WHERE kw.kw LIKE '%{}%' """.format(param)
+    ret = cur.execute(q)
+    if ret:
+        results = cur.fetchall()
+        return render_template('title_search.html', results = results)
+
+    # return request.form['title_search']
+    # return render_template("authors.html")
+
 
 
 @app.route('/translators')
 def translators():
     return render_template("translators.html")
+
+@app.route('/titles')
+def titles():
+    cur = mysql.connection.cursor()
+    ret = cur.execute('''SELECT t.title_id, t.title, t.pub_year, t.price, t.img_url, concat(a.firstname, ' ', a.lastname) authname
+     FROM titles t JOIN authors a on t.author_id=a.author_id ORDER BY t.title''')
+    if ret:
+        titles = cur.fetchall()
+        return render_template("titles.html", titles=titles)
+    cur.close()
+
 
 if __name__ == '__main__':
     app.run(debug=True)

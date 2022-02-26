@@ -1,19 +1,44 @@
 {% extends 'base.html' %}
 {% block sub_content %}
-<div class-'container'>
-<div class="maxxred"> </div>
+<div class='container expenses'>
     {% if expenses %}
-        <table class="cl_table">
+        <div class="row">
+        <table class="cl_table" style="border-collapse: collapse;">
         <tr>
-            <th>Descr</th><th>Amount</th><th>Date</th><th>Cat</th><th>Vendor</th>
+            <th style="text-align: center;">Descr</th>
+            <th style="text-align: center;">Amount</th>
+            <th style="text-align: center;">Date</th>
+            <th style="text-align: center;">Cat</th>
+            <th style="text-align: center;">Vendor</th>
         </tr>
             {% for e in expenses %}
+<!--           <div class="col-sm-3">-->
                 <tr>
-                    <td>{{e.descr}}</td><td>{{e.amount}}</td><td>{{e.exp_date}}</td><td>{{e.cat_id}}</td><td>{{e.vendor_id}}</td>
+                    <td>{{e.descr}}</td>
+                    <td style="text-align: right;">{{e.amount}}</td>
+                    <td style="text-align: center;">{{e.month}}-{{e.day}}-{{e.year}}</td>
+                    <td>{{e.cat}}</td>
+                    <td>{{e.vendor}}</td>
                 </tr>
-
+<!--            </div>-->
         {% endfor %}
         </table>
+        </div>
+    {% endif %}
+
+    {% if sums %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <table>
+                    {% for s in sums %}
+                    <tr>
+                        <td> {{ s['cat'] }}</td><td style="text-align: right;"> {{ s['sum'] }} </td>
+                    </tr>
+                    {% endfor%}
+                </table>
+            </div>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

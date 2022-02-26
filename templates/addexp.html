@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+
+<h3>Month: {{ month }}</h3>
+<h3>Day: {{ day }}</h3>
+
+<form action="" method="POST">
+  <p>Descr  <input type="text" name="descr"></p>
+  <p>Amount  <input type="text" name="amount"></p>
+  <p> Month <input type="text" name="mo"  value="{{ month }}">
+      Day   <input type="text" name="day" value="{{ day }}">
+      Year  <input type="text" name="yr" value="2022">
+  </p>
+  <p>cat_id  <input type="text" name="cat_id"></p>
+  <p>vendor_id  <input type="text" name="vendor_id"></p>
+    <input type="submit" value="Submit"/>
+</form>
+{% endblock %}

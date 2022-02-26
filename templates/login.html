@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block sub_content %}
 
-
+<div class="container">
   <h3>Log in</h3>
 
     <form action="/login" method="POST">
@@ -10,15 +10,15 @@
         <tr>
           <td><label for="username">User name</label></td>
           <td>
-            <input name="username" type="text" value="{{ username }}"><td class="error">{{ username_error }}</td>
+            <input name="username" type="text" value="{{ username }}">
           </td>
-          <td>{{ error }}</td>
+
         </tr>
         <tr>
           <td><label for="password">Password</label></td>
           <td>
-            <input name="password" type="password"><td class="error">{{ password_error }}</td>
-            <span class="error"></span>
+            <input name="password" type="password">
+
           </td>
         </tr>
       </table>
@@ -26,5 +26,5 @@
     </form>
 <br>
 If you don't have an account, you can <a href="/register" >sign up</a> for one.
-
+</div>
 {% endblock %}

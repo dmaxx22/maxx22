@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+
+    {% if titles %}
+        <div class="container books">
+            <div class="row">
+            {% for t in titles|sort(attribute='title') %}
+                <div class="col-md-4">
+                        <img src="{{t.img_url}} " height="150" alt="">
+                        <h5  style="color:royalblue;">{{t.title}}</h5>
+                        <h6>{{t.authname}} &nbsp;&nbsp;&nbsp;   {{t.pub_year}}</h6>
+                    <h6>{{t.price}}</h6>
+
+
+<!--                        src="{{ url_for('static', filename='images/t.img_url')}}" height="25" width="15" alt=""> </td>-->
+
+<hr>
+                </div>
+
+        {% endfor %}
+
+            </div>
+
+        </div>
+    {% endif %}
+
+{% endblock %}
